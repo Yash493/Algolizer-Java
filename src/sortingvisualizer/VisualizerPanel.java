@@ -1,6 +1,6 @@
 package sortingvisualizer;
 
-import sortingvisualizer.sortingAlgorithms.BubbleSort;
+import sortingvisualizer.sortingAlgorithms.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,33 +11,54 @@ public class VisualizerPanel extends JPanel {
     private int[] array;
     private int currentIndex = -1;
     private int comparingIndex = -1;
-    private boolean sorted = false;  // New flag to check if the array is sorted
 
     public VisualizerPanel() {
         setPreferredSize(new Dimension(800, 400));
-        randomizeArray(50); // Default array size
+        randomizeArray(50);
     }
 
     public void randomizeArray(int size) {
         array = new int[size];
         Random random = new Random();
         for (int i = 0; i < size; i++) {
-            array[i] = random.nextInt(300) + 1;
+            array[i] = random.nextInt(100) + 1;
         }
-        sorted = false;  // Reset the sorted flag when array is randomized
         repaint();
     }
 
     public void startSorting(String algorithm, int speed) {
-        int reversedSpeed = 100 - speed; // Reverse the speed
         if (algorithm.equals("Bubble Sort")) {
             new Thread(() -> {
                 BubbleSort bubbleSort = new BubbleSort(this);
-                bubbleSort.sort(array, reversedSpeed);
-                sorted = true;  // Set the sorted flag to true after sorting
-                repaint();  // Repaint to show green bars
+                bubbleSort.sort(array, speed);
+            }).start();
+        } else if (algorithm.equals("Quick Sort")) {
+            new Thread(() -> {
+                QuickSort quickSort = new QuickSort(this);
+                quickSort.sort(array, speed);
+            }).start();
+        } else if (algorithm.equals("Merge Sort")) {
+            new Thread(() -> {
+                MergeSort mergeSort = new MergeSort(this);
+                mergeSort.sort(array, speed);
+            }).start();
+        } else if (algorithm.equals("Insertion Sort")) {
+            new Thread(() -> {
+                InsertionSort insertionSort = new InsertionSort(this);
+                insertionSort.sort(array, speed);
+            }).start();
+        } else if (algorithm.equals("Heap Sort")) {
+            new Thread(() -> {
+                HeapSort heapSort = new HeapSort(this);
+                heapSort.sort(array, speed);
+            }).start();
+        } else if (algorithm.equals("Selection Sort")) {
+            new Thread(() -> {
+                SelectionSort selectionSort = new SelectionSort(this);
+                selectionSort.sort(array, speed);
             }).start();
         }
+        // Add other algorithms here
     }
 
     public void setIndices(int currentIndex, int comparingIndex) {
@@ -46,15 +67,26 @@ public class VisualizerPanel extends JPanel {
         repaint();
     }
 
+    public void setSorted() {
+        currentIndex = -1;
+        comparingIndex = -1;
+        repaint();
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        int width = getWidth() / array.length;
-        int spacing = 2; // Space between bars
 
+        int width = getWidth() / array.length;
+
+
+        int maxBarHeight = getHeight();
+        double heightScale = maxBarHeight / 200.0;
         for (int i = 0; i < array.length; i++) {
-            if (sorted) {
-                g.setColor(Color.GREEN);  // Set color to green if sorted
+            int barHeight = (int) (array[i] * heightScale);
+
+            if (currentIndex == -1 && comparingIndex == -1) {
+                g.setColor(Color.BLUE);
             } else if (i == currentIndex) {
                 g.setColor(Color.RED);
             } else if (i == comparingIndex) {
@@ -63,13 +95,17 @@ public class VisualizerPanel extends JPanel {
                 g.setColor(Color.GRAY);
             }
 
-            int x = i * width + spacing / 2;
-            int barHeight = array[i];
-            g.fillRect(x, getHeight() - barHeight, width - spacing, barHeight);
-
-            // Draw the numbers on top of the bars
+            g.fillRect(i * width, getHeight() - barHeight, width - 2, barHeight);
             g.setColor(Color.BLACK);
-            g.drawString(String.valueOf(array[i]), x + (width - spacing) / 4, getHeight() - barHeight - 5);
+            g.drawString("" + array[i], i * width + (width / 4), getHeight() - barHeight - 5);
+        }
+    }
+
+    public void sleep(int speed) {
+        try {
+            Thread.sleep(101 - speed);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 }

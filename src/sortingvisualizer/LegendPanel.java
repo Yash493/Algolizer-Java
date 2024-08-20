@@ -10,7 +10,7 @@ public class LegendPanel extends JPanel {
 
         add(createLegendItem(Color.YELLOW, "Compare"));
         add(createLegendItem(Color.RED, "Swap"));
-        add(createLegendItem(Color.GREEN, "Sorted"));
+        add(createLegendItem(Color.BLUE, "Sorted"));
     }
 
     private JPanel createLegendItem(Color color, String text) {
@@ -18,7 +18,7 @@ public class LegendPanel extends JPanel {
         panel.setLayout(new FlowLayout());
         panel.add(new JLabel(text));
         panel.setBackground(color);
-        panel.setPreferredSize(new Dimension(100, 20));
+        panel.setPreferredSize(new Dimension(200, 20));
         return panel;
     }
 }

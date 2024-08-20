@@ -2,8 +2,6 @@ package sortingvisualizer;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class ControlPanel extends JPanel {
 
@@ -28,7 +26,7 @@ public class ControlPanel extends JPanel {
         add(speedSlider);
 
         // Size slider
-        sizeSlider = new JSlider(10, 200, 50);
+        sizeSlider = new JSlider(10, 100, 50);
         sizeSlider.setMajorTickSpacing(10);
         sizeSlider.setPaintTicks(true);
         sizeSlider.setPaintLabels(true);
@@ -36,7 +34,7 @@ public class ControlPanel extends JPanel {
         add(sizeSlider);
 
         // Algorithm dropdown
-        algorithmComboBox = new JComboBox<>(new String[]{"Bubble Sort"});
+        algorithmComboBox = new JComboBox<>(new String[]{"Bubble Sort", "Quick Sort","Selection Sort","Merge Sort","Insertion Sort"});
         add(algorithmComboBox);
 
         // Randomize button
@@ -46,12 +44,9 @@ public class ControlPanel extends JPanel {
 
         // Sort button
         sortButton = new JButton("Sort");
-        sortButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String selectedAlgorithm = (String) algorithmComboBox.getSelectedItem();
-                visualizerPanel.startSorting(selectedAlgorithm, speedSlider.getValue());
-            }
+        sortButton.addActionListener(e -> {
+            String selectedAlgorithm = (String) algorithmComboBox.getSelectedItem();
+            visualizerPanel.startSorting(selectedAlgorithm, speedSlider.getValue());
         });
         add(sortButton);
     }

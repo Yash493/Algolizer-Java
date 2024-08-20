@@ -10,7 +10,7 @@ public class SortingVisualizer extends JFrame {
     private LegendPanel legendPanel;
 
     public SortingVisualizer() {
-        setTitle("Algoliser");
+        setTitle("Algolizer");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
@@ -20,7 +20,7 @@ public class SortingVisualizer extends JFrame {
         controlPanel = new ControlPanel(visualizerPanel);
         legendPanel = new LegendPanel();
 
-        // Add panels to the frame
+
         add(controlPanel, BorderLayout.NORTH);
         add(visualizerPanel, BorderLayout.CENTER);
         add(legendPanel, BorderLayout.SOUTH);
