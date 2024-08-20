@@ -26,9 +26,19 @@
 
 - **Java 8 or later**: Ensure that you have Java installed on your machine.
 
-### Installation
 
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/Yash493/Algolizer-Java.git
-   cd Algolizer-Java
+# UI
+
+1. Before sorting
+
+![image](https://github.com/user-attachments/assets/11c4c319-325f-4d94-b30a-77ef6fd5ad95)
+
+2. Sorting Algorithm
+   ![image](https://github.com/user-attachments/assets/34cb9124-8944-4883-9d84-fdefe6e58598)
+
+3. After Sorting
+   ![image](https://github.com/user-attachments/assets/4e0baadf-3ccf-40ba-8108-c859ed5f8c85)
+
+
+   
+
